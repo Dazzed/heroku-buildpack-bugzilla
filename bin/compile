@@ -36,9 +36,38 @@ if ! [ -e $BUILD_DIR/local/bin/cpanm ]; then
   curl -L --silent https://raw.github.com/miyagawa/cpanminus/master/cpanm | perl - App::cpanminus 2>&1 | indent
 fi
 
+> heroku_answers.txt <<ANSWERS
+\$answer{'ADMIN_EMAIL'} = 'admin@bugzilla.org';
+\$answer{'ADMIN_OK'} = 'Y';
+\$answer{'ADMIN_PASSWORD'} = 'password';
+\$answer{'ADMIN_REALNAME'} = 'QA Admin';
+\$answer{'NO_PAUSE'} = 1;
+\$answer{'create_htaccess'} = '';
+\$answer{'db_check'} = 1;
+\$answer{'db_driver'} = 'sqlite';
+\$answer{'db_host'} = 'localhost';
+\$answer{'db_mysql_ssl_ca_file'} = '';
+\$answer{'db_mysql_ssl_ca_path'} = '';
+\$answer{'db_mysql_ssl_client_cert'} = '';
+\$answer{'db_mysql_ssl_client_key'} = '';
+\$answer{'db_name'} = 'bugs',
+\$answer{'db_pass'} = 'bugs';
+\$answer{'db_port'} = 0;
+\$answer{'db_sock'} = '';
+\$answer{'db_user'} = 'bugs';
+\$answer{'diffpath'} = '/usr/bin';
+\$answer{'index_html'} = 0;
+\$answer{'interdiffbin'} = '/usr/bin/interdiff';
+\$answer{'memcached_servers'} = "localhost:11211";
+\$answer{'urlbase'} = 'http://localhost:8080/bugzilla/';
+\$answer{'use_suexec'} = '';
+\$answer{'webservergroup'} = '';
+ANSWERS
+
 echo "-----> Installing dependencies"
 echo "cpanm options: $PERL_CPANM_OPT" | indent
-cpanm --installdeps . 2>&1 | indent
+perl checksetup.pl --cpanm heroku_answers.txt 2>&1 | indent
+perl checksetup.pl heroku_answers.txt 2>&1 | indent
 
 echo "-----> Installing Starman"
 cpanm Starman 2>&1 | indent
