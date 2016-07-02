@@ -1,35 +1,25 @@
-Heroku buildpack: Perl
-======================
+Heroku buildpack: Bugzilla
+==========================
 
-This is a Heroku buildpack that runs any PSGI based web applications using Starman.
+This is a Heroku buildpack that runs Bugzilla 5.1+
 
 Usage
 -----
 
 Example usage:
 
-    $ ls
-    cpanfile
-    app.psgi
-    lib/
-
-    $ cat cpanfile
-    requires 'Plack', '1.0000';
-    requires 'DBI', '1.6';
-
-    $ heroku create --stack cedar --buildpack https://github.com/miyagawa/heroku-buildpack-perl.git
+    $ heroku create --stack cedar --buildpack https://github.com/dylanwh/heroku-buildpack-bugzilla.git
 
     $ git push heroku master
     ...
     -----> Heroku receiving push
     -----> Fetching custom buildpack
-    -----> Perl/PSGI app detected
+    -----> Bugzilla detected
     -----> Installing dependencies
 
-The buildpack will detect that your app has an `app.psgi` in the root.
+The buildpack will detect that your app has an `app.psgi` and `checksetup.pl` in the root.
 
-Libraries
----------
+FEATURES
+--------
 
-Dependencies can be declared using `cpanfile` (recommended) or more traditional `Makefile.PL`, `Build.PL` and `META.json` (whichever you can install with `cpanm --installdeps`), and the buildpack will install these dependencies using [cpanm](http://cpanmin.us) into `./local` directory.
-
+TODO: declare which bugzilla optional features to turn on.
