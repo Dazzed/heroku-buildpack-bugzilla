@@ -68,7 +68,7 @@ echo "-----> Installing dependencies"
 echo "cpanm options: $PERL_CPANM_OPT" | indent
 cpanm $PERL_CPANM_OPT ExtUtils::MakeMaker 2>&1 | indent
 perl Makefile.PL 2>&1 | indent
-perl checksetup.pl --cpanm heroku_answers.txt 2>&1 | indent
+perl checksetup.pl heroku_answers.txt --cpanm 2>&1 | indent
 perl checksetup.pl heroku_answers.txt 2>&1 | indent
 
 echo "-----> Installing Starman"
