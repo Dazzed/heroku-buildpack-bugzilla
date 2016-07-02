@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # this pack is valid for apps with an app.psgi in the root
-if [ -f $1/app.psgi && -f $1/checksetup.pl ]; then
+if [[ -f $1/app.psgi && -f $1/checksetup.pl ]]; then
   echo "Bugzilla"
   exit 0
 else
