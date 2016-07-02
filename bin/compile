@@ -36,7 +36,7 @@ if ! [ -e $BUILD_DIR/local/bin/cpanm ]; then
   curl -L --silent https://raw.github.com/miyagawa/cpanminus/master/cpanm | perl - App::cpanminus 2>&1 | indent
 fi
 
-> heroku_answers.txt <<ANSWERS
+cat > heroku_answers.txt <<ANSWERS
 \$answer{'ADMIN_EMAIL'} = 'admin@bugzilla.org';
 \$answer{'ADMIN_OK'} = 'Y';
 \$answer{'ADMIN_PASSWORD'} = 'password';
