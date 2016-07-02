@@ -14,6 +14,10 @@ BUILD_DIR=$1
 CACHE_DIR=$2
 ENV_DIR=$3
 
+for file in $ENV_DIR/*; do
+    echo $file | indent
+done
+
 PATH="$BUILD_DIR/local/bin:$PATH"
 
 export PERL5LIB="$BUILD_DIR/local/lib/perl5"
@@ -59,8 +63,8 @@ cat > heroku_answers.txt <<ANSWERS
 \$answer{'diffpath'} = '/usr/bin';
 \$answer{'index_html'} = 0;
 \$answer{'interdiffbin'} = '/usr/bin/interdiff';
-\$answer{'memcached_servers'} = "localhost:11211";
-\$answer{'urlbase'} = 'http://localhost:8080/bugzilla/';
+\$answer{'memcached_servers'} = "";
+\$answer{'urlbase'} = '';
 \$answer{'use_suexec'} = '';
 \$answer{'webservergroup'} = '';
 ANSWERS
