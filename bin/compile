@@ -28,6 +28,11 @@ if [ -f $ENV_DIR/PERL_CPANM_OPT ]; then
 fi
 export PERL_CPANM_OPT
 
+if [ -f $ENV_DIR/DATABASE_URL ]; then
+    DATABASE_URL="$(cat $ENV_DIR/DATABASE_URL)"
+fi
+export DATABASE_URL
+
 rm -rf $BUILD_DIR/local
 if [ -d $CACHE_DIR/local ]; then
   cp -a $CACHE_DIR/local $BUILD_DIR/local
@@ -73,7 +78,7 @@ echo "-----> Installing dependencies"
 echo "cpanm options: $PERL_CPANM_OPT" | indent
 cpanm $PERL_CPANM_OPT ExtUtils::MakeMaker 2>&1 | indent
 perl Makefile.PL 2>&1 | indent
-perl checksetup.pl heroku_answers.txt --cpanm 2>&1 | indent
+perl checksetup.pl heroku_answers.txt --cpanm='default heroku' 2>&1 | indent
 perl checksetup.pl heroku_answers.txt 2>&1 | indent
 
 echo "-----> Installing Starman"
