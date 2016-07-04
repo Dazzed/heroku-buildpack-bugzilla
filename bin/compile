@@ -37,6 +37,9 @@ rm -rf $BUILD_DIR/local
 if [ -d $CACHE_DIR/local ]; then
   cp -a $CACHE_DIR/local $BUILD_DIR/local
 fi
+if [ -f $CACHE_DIR/localconfig ]; then
+  cp -a $CACHE_DIR/localconfig $BUILD_DIR/localconfig
+fi
 
 cd $BUILD_DIR
 
@@ -70,7 +73,6 @@ echo "-----> Installing dependencies"
 echo "cpanm options: $PERL_CPANM_OPT" | indent
 cpanm $PERL_CPANM_OPT ExtUtils::MakeMaker 2>&1 | indent
 perl Makefile.PL 2>&1 | indent
-rm -fv localconfig
 perl checksetup.pl heroku_answers.txt --cpanm='default pg db_from_env' 2>&1 | indent
 perl checksetup.pl heroku_answers.txt 2>&1 | indent
 
@@ -81,4 +83,8 @@ if [ -d $BUILD_DIR/local ]; then
   rm -rf $CACHE_DIR/local
   mkdir -p $CACHE_DIR
   cp -a $BUILD_DIR/local $CACHE_DIR/local
+fi
+
+if [ -f $BUILD_DIR/localconfig ]; then
+  cp -a $BUILD_DIR/localconfig $CACHE_DIR/localconfig
 fi
