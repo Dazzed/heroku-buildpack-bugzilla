@@ -55,16 +55,6 @@ cat > heroku_answers.txt <<ANSWERS
 \$answer{'create_htaccess'} = '';
 \$answer{'db_check'} = 1;
 \$answer{'db_from_env'} = 1;
-\$answer{'db_driver'} = 'sqlite';
-\$answer{'db_host'} = 'localhost';
-\$answer{'db_mysql_ssl_ca_file'} = '';
-\$answer{'db_mysql_ssl_ca_path'} = '';
-\$answer{'db_mysql_ssl_client_cert'} = '';
-\$answer{'db_mysql_ssl_client_key'} = '';
-\$answer{'db_name'} = 'bugs',
-\$answer{'db_pass'} = 'bugs';
-\$answer{'db_port'} = 0;
-\$answer{'db_sock'} = '';
 \$answer{'db_user'} = 'bugs';
 \$answer{'read_only_fs'} = 1;
 \$answer{'diffpath'} = '/usr/bin';
@@ -80,8 +70,10 @@ echo "-----> Installing dependencies"
 echo "cpanm options: $PERL_CPANM_OPT" | indent
 cpanm $PERL_CPANM_OPT ExtUtils::MakeMaker 2>&1 | indent
 perl Makefile.PL 2>&1 | indent
+rm localconfig
 perl checksetup.pl heroku_answers.txt --cpanm='default heroku' 2>&1 | indent
 perl checksetup.pl heroku_answers.txt 2>&1 | indent
+cat localconfig | indent
 
 echo "-----> Installing Starman"
 cpanm Starman 2>&1 | indent
