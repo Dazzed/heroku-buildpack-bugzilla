@@ -41,6 +41,8 @@ if [ -f $CACHE_DIR/localconfig ]; then
   cp -a $CACHE_DIR/localconfig $BUILD_DIR/localconfig
 fi
 
+sudo apt-get install sendmail
+
 cd $BUILD_DIR
 
 if ! [ -e $BUILD_DIR/local/bin/cpanm ]; then
